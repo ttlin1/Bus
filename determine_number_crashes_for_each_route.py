@@ -4,6 +4,7 @@ import csv
 
 
 def aggregate_by_route_by_injury_type(route_fc, crash_fc, gdb, distance):
+    """Iterates through the bus route data and aggregates the number and type of injuries within the search distance"""
     arcpy.env.workspace = gdb
     route_dictionary = {}
     for row in arcpy.da.SearchCursor(route_fc, ["ROUTE_TOM", "AGENCY"]):
@@ -32,6 +33,7 @@ def aggregate_by_route_by_injury_type(route_fc, crash_fc, gdb, distance):
 
 
 def write_results_to_text_file(route_dictionary, output_path):
+    """Writes the results of the aggregated crash data to a tab-delimited file"""
     with open(output_path, "wb") as text_file:
         writer = csv.writer(text_file, delimiter="\t")
         legend = ["Bus Route", "Agency", "Injury Type", "Count"]
@@ -44,6 +46,7 @@ def write_results_to_text_file(route_dictionary, output_path):
 
 
 def write_results_to_gis_feature_class(route_dictionary, gis_fc):
+    """Adds the aggregated injury data to a feature class"""
     injury_type_list = ["Fatal injury", "Non-fatal injury - Incapacitating", "Non-fatal injury - Non-incapacitating",
                         "Non - fatal injury - Possible"]
     for i in injury_type_list:
