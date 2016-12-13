@@ -1,3 +1,3 @@
-# MBTA_Bus
+# Bus Routes
 
-Python scripts used to analyze MBTA bus data.
+Python scripts used to analyze bus data.
